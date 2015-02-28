@@ -63,6 +63,9 @@ app.post('/', function (req, res) {
             });
         });
     };
+});
+
+app.post('/newUser', function (req, res) {
     if (req.get('Object-Type') == "newuser") {
         // If the POST object is an attempt to make a new user
         pool.getConnection(function (err, connection) {
@@ -86,13 +89,13 @@ app.post('/', function (req, res) {
     }
 });
 
-app.post('/login', authenticate, function(req, res) {
+app.post('/login', authenticate, function (req, res) {
     res.send(user);
 });
 
 
 
-app.listen(8080, function() {
+app.listen(8080, function () {
     console.log('App listening on localhost:8080')
 }); // Listen on port 8080 for these posts (default http port)
 
