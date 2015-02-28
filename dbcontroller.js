@@ -31,13 +31,15 @@ app.post('/', function(req, res) {
 		var zip = getZipcode([req.body.latitude,req.body.longitude]);
 		console.log(req.body.latitude);
 		console.log(req.body.longitude);
-		res.pipe(pool.getConnection(function(err, connection) {
+		pool.getConnection(function(err, connection) {
 			connection.query("SELECT * FROM zip_00000 UNION ALL SELECT * FROM zip_" + zip, function(err, rows) {
 				console.log(rows);
-				//res.send(rows);
+				if (!err){
+					res.json(rows);
+				}
 				connection.release();
 			});
-		}));
+		});
 		res.end();
 	};
 	if (req.get('Object-Type') == "nearbypostattempt"){
