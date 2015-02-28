@@ -1,0 +1,8 @@
+This is for testing purposes
+Create another SSH connection and use these commands to test the webserver
+
+Test nearby post:
+curl -H "Content-Type: application/json" -H "Object-Type: location" -d '{"latitude":5.0,"longitude":0.0}' http://localhost:8080
+
+Test newuser:
+curl -H "Content-Type: application/json" -H "Object-Type: newuser" -d '{"email":"unique@email.com","password":"Testuserpassword","name":"testinator","age":100}' http://localhost:8080

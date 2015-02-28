@@ -55,7 +55,8 @@ app.post('/', function(req, res) {
 	if (req.get('Object-Type') == "newuser") {
 		pool.getConnection(function(err, connection) {
 			connection.query("SELECT EXISTS(SELECT 1 FROM Users WHERE email = \"" + req.body.email + "\")", function(err, rows) {
-				if (rows.json == [1]) {
+				console.log(json(rows));
+				if (json(rows) == [1]) {
 					res.status(403).send("Email already exists").end();
 				} else {
 					// Create and store token
