@@ -38,9 +38,9 @@ app.post('/', function(req, res) {
 					res.json(rows);
 				}
 				connection.release();
+				res.end();
 			});
 		});
-		res.end();
 	};
 	if (req.get('Object-Type') == "nearbypostattempt"){
 		// Authenticate user
