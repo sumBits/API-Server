@@ -5,7 +5,8 @@ var bodyParser = require('body-parser') // Require body-parser package
 
 // Set up mysql pool for creating connections to db
 var pool = mysql.createPool({
-	host:  "ec2-52-11-79-134.us-west-2.compute.amazonaws.com",
+	host:  "threadsmaindb.cbbxphbgixf1.us-west-2.rds.amazonaws.com",
+	database: "ThreadsDB",
 	user: "sumBits",
 	password: "dbpassword",
 	connectionLimit: 10 
