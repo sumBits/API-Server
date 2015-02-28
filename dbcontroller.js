@@ -31,12 +31,11 @@ app.post('/', function(req, res) {
 		// Authenticate user
 		var zip = getZipcode([req.body.latitude,req.body.longitude]);
 		pool.getConnection(function(err, connection) {
-			connection.query("INSERT INTO zip-" + zip + "(title,owner,category,timestamp,latitude,longitude,content) 
-				VALUES (" + req.body.post.title + ", " + req.body.user.name + ", " + req.body.post.category + ", Now(), " + 
-				req.body.post.latitude + ", " + req.body.post.longitude + ", " + req.body.post.content, function(err, rows) {
+			connection.query("INSERT INTO zip-" + zip + "(title,owner,category,timestamp,latitude,longitude,content) VALUES (" + req.body.post.title + ", " + req.body.user.name + ", " + req.body.post.category + ", Now(), " + req.body.post.latitude + ", " + req.body.post.longitude + ", " + req.body.post.content, function(err, rows) {
 					connection.release();
 				});
 		});
 	};
 });
 
+app.listen(8080);
