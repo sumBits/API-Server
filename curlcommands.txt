@@ -5,6 +5,6 @@ Test nearby post:
 curl -H "Content-Type: application/json" -H "Object-Type: location" -d '{"latitude":5.0,"longitude":0.0}' http://localhost:8080
 
 Test newuser:
-curl -H "Content-Type: application/json" -H "Object-Type: newuser" -d '{"email":"unique@email.com","password":"Testuserpassword","name":"testinator","age":100}' http://localhost:8080
+curl -H "Content-Type: application/json" -H "Object-Type: newuser" -d '{"email":"unique@email.com","password":"Testuserpassword","name":"testinator","age":100}' http://localhost:8080/newUser
 
 curl -H "Content-Type: application/json" -H "Object-Type: user" -d '{"username":" test", "password": "p"}' http://localhost:8080/login
