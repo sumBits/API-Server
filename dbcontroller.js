@@ -31,19 +31,20 @@ app.post('/', function(req, res) {
 		var zip = getZipcode([req.body.latitude,req.body.longitude]);
 		console.log(req.body.latitude);
 		console.log(req.body.longitude);
-		res.send(pool.getConnection(function(err, connection) {
-			connection.query("SELECT * FROM zip-00000 UNION ALL SELECT * FROM zip-" + zip, function(err, rows) {
+		pool.getConnection(function(err, connection) {
+			connection.query("SELECT * FROM zip_00000 UNION ALL SELECT * FROM zip_" + zip, function(err, rows) {
 				console.log(rows);
+				res.send(rows);
 				connection.release();
 			});
-		}));
+		});
 		res.end();
 	};
 	if (req.get('Object-Type') == "nearbypostattempt"){
 		// Authenticate user
 		var zip = getZipcode([req.body.latitude,req.body.longitude]);
 		pool.getConnection(function(err, connection) {
-			connection.query("INSERT INTO zip-" + zip + "(title,owner,category,timestamp,latitude,longitude,content) VALUES (" + req.body.post.title + ", " + req.body.user.name + ", " + req.body.post.category + ", Now(), " + req.body.post.latitude + ", " + req.body.post.longitude + ", " + req.body.post.content, function(err, rows) {
+			connection.query("INSERT INTO zip_" + zip + "(title,owner,category,timestamp,latitude,longitude,content) VALUES (" + req.body.post.title + ", " + req.body.user.name + ", " + req.body.post.category + ", Now(), " + req.body.post.latitude + ", " + req.body.post.longitude + ", " + req.body.post.content, function(err, rows) {
 					connection.release();
 				});
 		});
