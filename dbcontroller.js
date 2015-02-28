@@ -27,13 +27,17 @@ app.post('/', function(req, res) {
 	console.log("Recieved post");
 	if (req.get('Object-Type') == "location") {
 		console.log("Object type is location");
+		res.status(200);
 		var zip = getZipcode([req.body.latitude,req.body.longitude]);
-		res.pipe(pool.getConnection(function(err, connection) {
+		console.log(req.body.latitude);
+		console.log(req.body.longitude);
+		res.send(pool.getConnection(function(err, connection) {
 			connection.query("SELECT * FROM zip-00000 UNION ALL SELECT * FROM zip-" + zip, function(err, rows) {
 				console.log(rows);
 				connection.release();
 			});
 		}));
+		res.end();
 	};
 	if (req.get('Object-Type') == "nearbypostattempt"){
 		// Authenticate user
