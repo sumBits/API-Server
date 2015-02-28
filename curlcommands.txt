@@ -6,3 +6,5 @@ curl -H "Content-Type: application/json" -H "Object-Type: location" -d '{"latitu
 
 Test newuser:
 curl -H "Content-Type: application/json" -H "Object-Type: newuser" -d '{"email":"unique@email.com","password":"Testuserpassword","name":"testinator","age":100}' http://localhost:8080
+
+curl -H "Content-Type: application/json" -H "Object-Type: user" -d '{"username":" test", "password": "p"}' http://localhost:8080/login
