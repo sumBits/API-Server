@@ -23,7 +23,7 @@ function getZipcode(arr){
 
 // Main post checking function
 app.post('/', function(req, res) {
-	if (req.is('location')) {
+	if (req.get('Object-Type') == "location") {
 		var zip = getZipcode([req.body.latitude,req.body.longitude]);
 		res.pipe(pool.getConnection(function(err, connection) {
 			connection.query("SELECT * FROM zip-00000 UNION ALL SELECT * FROM zip-" + zip, function(err, rows) {
@@ -31,7 +31,7 @@ app.post('/', function(req, res) {
 			});
 		}));
 	};
-	if (req.is('nearbypostattempt')) {
+	if (req.get('Object-Type') == "nearbypostattempt" {
 		// Authenticate user
 		var zip = getZipcode([req.body.latitude,req.body.longitude]);
 		pool.getConnection(function(err, connection) {
