@@ -31,7 +31,7 @@ app.post('/', function(req, res) {
 			});
 		}));
 	};
-	if (req.get('Object-Type') == "nearbypostattempt" {
+	if (req.get('Object-Type') == "nearbypostattempt"){
 		// Authenticate user
 		var zip = getZipcode([req.body.latitude,req.body.longitude]);
 		pool.getConnection(function(err, connection) {
