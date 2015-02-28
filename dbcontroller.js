@@ -95,7 +95,7 @@ app.post('/login', authenticate, function (req, res) {
 
 
 
-app.listen(9310, "52.11.79.134" , function () {
+app.listen(8080, function () {
     console.log('App listening on localhost:8080')
 }); // Listen on port 8080 for these posts (default http port)
 
