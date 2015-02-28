@@ -17,6 +17,10 @@ app.use(bodyParser.urlencoded({
 	extended: true
 })); // Add support for URL-encoded bodies
 
+function getZipcode(arr){
+	return "80126";
+}
+
 // Main post checking function
 app.post('/', function(req, res) {
 	if (req.is('location')) {
