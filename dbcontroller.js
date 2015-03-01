@@ -166,7 +166,7 @@ function getZoneQuery(arr) {
 			closetolat = true;
 			if (Math.round(arr[0]) == Math.ceil(arr[0])) {
 			};
-			additionalzones = additionalzones + " UNION ALL SELECT * FROM zone*" + Math.round(arr[0]) + "*" + lon;
+			additionalzones = additionalzones + " UNION ALL SELECT * FROM zone*n" + Math.abs(Math.round(arr[0])) + "*" + lon;
 		};
 	};
 
@@ -183,7 +183,7 @@ function getZoneQuery(arr) {
 			closetolat = true;
 			if (Math.round(arr[1]) == Math.ceil(arr[1])) {
 			};
-			additionalzones = additionalzones + " UNION ALL SELECT * FROM zone*" + lat + "*" + Math.round(arr[1]);
+			additionalzones = additionalzones + " UNION ALL SELECT * FROM zone*" + lat + "*n" + Math.abs(Math.round(arr[1]));
 		};
 	};
 
