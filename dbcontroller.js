@@ -88,6 +88,7 @@ app.post('/newUser', function (req, res) {
 });
 
 app.post('/login', authenticate, function (req, res) {
+    console.log(req.user);
     var token = jwt.sign({
         user: req.email
     }, jwtSecret);
@@ -119,7 +120,6 @@ app.listen(8080, "0.0.0.0", function () {
 
 function authenticate(req, res, next) {
     console.log("Auth Called");
-    console.log("req.user: ", req.user);
     var body = req.body;
     if (!body.email || !body.password) {
         res.status(400).end('Must provide email or password')
