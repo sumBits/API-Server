@@ -119,6 +119,7 @@ app.listen(8080, "0.0.0.0", function () {
 
 function authenticate(req, res, next) {
     console.log("Auth Called");
+    console.log("req.body.email: ", req.body.email, "req.body.usn: ", req.body.username);
     var body = req.body;
     if (!body.username || !body.password) {
         res.status(400).end('Must provide email or password')
