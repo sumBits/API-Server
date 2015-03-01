@@ -88,13 +88,12 @@ app.post('/newUser', function (req, res) {
 });
 
 app.post('/login', authenticate, function (req, res) {
-    console.log(req.user);
     var token = jwt.sign({
-        user: req.email
+        user: req.body.email
     }, jwtSecret);
     res.send({
         token: token,
-        user: req.user
+        user: req.email
     });
 });
 
