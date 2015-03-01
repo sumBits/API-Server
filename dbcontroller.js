@@ -129,6 +129,8 @@ function getZoneQuery(arr) {
 	var solution = "SELECT * FROM worldwide UNION ALL SELECT * FROM zone*";
 	var additionalzones = "";
 
+	var lonpositive = false;
+	var latpositive = false;
 	var closetolat = false;
 	var latclosetof = false;
 	var closetolon = false;
