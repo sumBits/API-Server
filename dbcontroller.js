@@ -110,7 +110,7 @@ app.get('/me', function(req, res) {
 
 
 
-app.listen(80, "0.0.0.0", function () {
+app.listen(8080, "0.0.0.0", function () {
     console.log('App listening on server:80')
 }); // Listen on port 8080 for these posts (default http port)
 
