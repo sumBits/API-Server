@@ -9,15 +9,15 @@
 <h1>Get Random User</h1>
 
 <div ng-hide="vm.user">
-    <form ng-submit="vm.login(vm.username, vm.password)">
-        <label>Username: <input type="text" ng-model="vm.username"/></label><br/>
+    <form ng-submit="vm.login(vm.email, vm.password)">
+        <label>Username: <input type="text" ng-model="vm.email"/></label><br/>
         <label>Password: <input type="password" ng-model="vm.password"/></label><br/>
         <button type="submit">Login</button>
     </form>
 </div>
 
 <div ng-show="vm.user">
-    <h2>Welcome {{vm.user.username}}</h2>
+    <h2>Welcome {{vm.user.email}}</h2>
     <button ng-click="vm.logout()">Logout</button>
     <br/>
     <button ng-click="vm.getRandomUser()">Get User</button>

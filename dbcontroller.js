@@ -124,12 +124,22 @@ function authenticate(req, res, next) {
     console.log("Auth Called");
     var body = req.body;
     if (!body.username || !body.password) {
-        res.status(400).end('Must provide username or password')
-    }
-    if (body.username !== user.username || body.password !== user.password) {
-        res.status(401).end('Username or password incorrect');
-        console.log("logged in");
-    }
+        res.status(400).end('Must provide email or password')
+    } else {
+        pool.getConnection(function (err, connection) {
+            // Make a connection the the db
+            connection.query("SELECT EXISTS(SELECT 1 FROM Users WHERE email = \"" + req.body.email + "\")", function (err, rows) {
+                // Return a query "rows" that contains a 1 if the email exists, 0 if not
+                console.log(rows); // Debugging
+                if (rows[0][Object.keys(rows[0])[0]] == 1) { // Access the 0 or 1
+                    //spencer, i need to check if the password is correct here, what do i do?
+                } else {
+                    res.status(401).end('Incorrect email or password')
+                }
+                connection.release(); // Release db connection to pool
+            });
+        });
+    };
     next();
 };
 

@@ -24,8 +24,8 @@
             }, handleError);
         }
 
-        function login(username, password) {
-            UserFactory.login(username, password).then(function success(response) {
+        function login(email, password) {
+            UserFactory.login(email, password).then(function success(response) {
                 vm.user = response.data.user;
             }, handleError);
 
@@ -59,9 +59,9 @@
             getUser: getUser
         };
 
-        function login(username, password) {
+        function login(email, password) {
             return $http.post(API_URL + '/login', {
-                username: username,
+                email: email,
                 password: password
             }).then(function success(response) {
                 AuthTokenFactory.setToken(response.data.token);
