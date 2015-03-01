@@ -132,7 +132,13 @@ function authenticate(req, res, next) {
                 // Return a query "rows" that contains a 1 if the email exists, 0 if not
                 console.log(rows); // Debugging
                 if (rows[0][Object.keys(rows[0])[0]] == 1) { // Access the 0 or 1
-                    //spencer, i need to check if the password is correct here, what do i do?
+                    connection.query("SELECT password FROM Users WHERE email = \"" + req.body.email + "\"", function (err, psswd) {
+                    	if (psswd[0] == req.body.password) {
+                    		// Do stuff here if password is right
+                    	} else {
+                    		// Do stuff here if password is wrong
+                    	};
+                    })
                 } else {
                     res.status(401).end('Incorrect email or password')
                 }
