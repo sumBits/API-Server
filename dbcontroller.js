@@ -89,7 +89,7 @@ app.post('/newUser', function (req, res) {
 
 app.post('/login', authenticate, function (req, res) {
     var token = jwt.sign({
-        email: req.email
+        user: req.email
     }, jwtSecret);
     res.send({
         token: token,
