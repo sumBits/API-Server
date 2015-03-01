@@ -25,7 +25,7 @@ app.use(bodyParser.json()); // Add support for JSON-encoded bodies
 app.use(bodyParser.urlencoded({
     extended: true
 })); // Add support for URL-encoded bodies
-app.use(!(expressJwt({secret: jwtSecret }).unless({path: ['/login']})));
+app.use((expressJwt({secret: jwtSecret }).unless({path: ['/login']})));
 app.use(cors());
 
 // Main post checking function
