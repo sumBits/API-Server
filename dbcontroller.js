@@ -112,21 +112,21 @@ function getZipcode(arr) {
 } // Currently returns default zip code
 
 function zoneLookup (arr) {
-	var solution = "zone";
+	var solution = "zone_";
 	var lat = "";
 	var lon = "";
 
 	lat = Math.round(arr[0]);
 	lon = Math.round(arr[1]);
 
-	solution = solution + lat + "*" + lon;
+	solution = solution + lat + "_" + lon;
 	return solution;
 }
 
 function getZoneQuery(arr) {
 	var lat = "";
 	var lon = "";
-	var solution = "SELECT * FROM worldwide UNION ALL SELECT * FROM zone*";
+	var solution = "SELECT * FROM worldwide UNION ALL SELECT * FROM zone_";
 	var additionalzones = "";
 
 	var lonpositive = false;
@@ -159,14 +159,14 @@ function getZoneQuery(arr) {
 			if (Math.round(arr[0]) == Math.floor(arr[0])) {
 				latclosetof = true;
 			};
-			additionalzones = additionalzones + " UNION ALL SELECT * FROM zone*" + Math.round(arr[0]) + "*" + lon;
+			additionalzones = additionalzones + " UNION ALL SELECT * FROM zone_" + Math.round(arr[0]) + "_" + lon;
 		};
 	} else {
 		if (Math.round(arr[0]) - arr[0] < 0.1) {
 			closetolat = true;
 			if (Math.round(arr[0]) == Math.ceil(arr[0])) {
 			};
-			additionalzones = additionalzones + " UNION ALL SELECT * FROM zone*n" + Math.abs(Math.round(arr[0])) + "*" + lon;
+			additionalzones = additionalzones + " UNION ALL SELECT * FROM zone_n" + Math.abs(Math.round(arr[0])) + "_" + lon;
 		};
 	};
 
@@ -176,14 +176,14 @@ function getZoneQuery(arr) {
 			if (Math.round(arr[1]) == Math.floor(arr[1])) {
 				lonclosetof = true;
 			};
-			additionalzones = additionalzones + " UNION ALL SELECT * FROM zone*" + lat + "*" + Math.round(arr[1]);
+			additionalzones = additionalzones + " UNION ALL SELECT * FROM zone_" + lat + "_" + Math.round(arr[1]);
 		};
 	} else {
 		if (Math.round(arr[1]) - arr[1] < 0.1) {
 			closetolat = true;
 			if (Math.round(arr[1]) == Math.ceil(arr[1])) {
 			};
-			additionalzones = additionalzones + " UNION ALL SELECT * FROM zone*" + lat + "*n" + Math.abs(Math.round(arr[1]));
+			additionalzones = additionalzones + " UNION ALL SELECT * FROM zone_" + lat + "_n" + Math.abs(Math.round(arr[1]));
 		};
 	};
 
@@ -191,7 +191,7 @@ function getZoneQuery(arr) {
 		// TODO add code to add the corner zones to the query
 	};
 
-	solution = solution + lat + "*" + lon;
+	solution = solution + lat + "_" + lon;
 	console.log("Original solution: " + solution);
 	solution = solution + additionalzones;
 	console.log("Changed solution: " + solution);
