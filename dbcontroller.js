@@ -154,7 +154,7 @@ function getZoneQuery(arr) {
 	};
 
 	if (latpositive) {
-		if (Math.round(arr[0]) - arr[0] < 0.1) {
+		if (Math.abs(Math.round(arr[0]) - arr[0]) < 0.1) {
 			closetolat = true;
 			if (Math.round(arr[0]) == Math.floor(arr[0])) {
 				latclosetof = true;
@@ -162,7 +162,7 @@ function getZoneQuery(arr) {
 			additionalzones = additionalzones + " UNION ALL SELECT * FROM zone_" + Math.round(arr[0]) + "_" + lon;
 		};
 	} else {
-		if (Math.round(arr[0]) - arr[0] < 0.1) {
+		if (Math.abs(Math.round(arr[0]) - arr[0]) < 0.1) {
 			closetolat = true;
 			if (Math.round(arr[0]) == Math.ceil(arr[0])) {
 			};
@@ -171,7 +171,7 @@ function getZoneQuery(arr) {
 	};
 
 	if (lonpositive) {
-		if (Math.round(arr[1]) - arr[1] < 0.1) {
+		if (Math.abs(Math.round(arr[1]) - arr[1]) < 0.1) {
 			closetolat = true;
 			if (Math.round(arr[1]) == Math.floor(arr[1])) {
 				lonclosetof = true;
@@ -179,7 +179,7 @@ function getZoneQuery(arr) {
 			additionalzones = additionalzones + " UNION ALL SELECT * FROM zone_" + lat + "_" + Math.round(arr[1]);
 		};
 	} else {
-		if (Math.round(arr[1]) - arr[1] < 0.1) {
+		if (Math.abs(Math.round(arr[1]) - arr[1]) < 0.1) {
 			closetolat = true;
 			if (Math.round(arr[1]) == Math.ceil(arr[1])) {
 			};
