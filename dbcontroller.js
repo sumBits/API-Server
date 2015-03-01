@@ -9,10 +9,6 @@ var expressJwt = require('express-jwt');
 
 var jwtSecret = 'fjkdlsajfoew239053/3uk';
 
-var user = { //fake user database
-    username: 'test',
-    password: 'p'
-};
 
 
 // Set up mysql pool for creating connections to db
@@ -93,7 +89,7 @@ app.post('/newUser', function (req, res) {
 
 app.post('/login', authenticate, function (req, res) {
     var token = jwt.sign({
-        username: user.username
+        email: user.email
     }, jwtSecret);
     res.send({
         token: token,
@@ -108,6 +104,7 @@ app.get('/random-user', function(req, res) {
 });
 
 app.get('/me', function(req, res) {
+    console.log(req.user);
     res.send(req.user);
 });
 
@@ -136,7 +133,7 @@ function authenticate(req, res, next) {
                     	if (psswd[0] == req.body.password) {
                     		// Do stuff here if password is right
                     	} else {
-                    		// Do stuff here if password is wrong
+                    		res.status(401).end('Incorrect password')
                     	};
                     })
                 } else {
