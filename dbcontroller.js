@@ -139,14 +139,18 @@ function getZoneQuery(arr) {
 	if (arr[0] >= 0) {
 		latpositive = true;
 		lat = Math.floor(arr[0]).toString();
+		console.log("Lat is positive");
 	} else {
-		lat = Math.ceil(arr[0]).toString();
+		lat = "n" + Math.abs(Math.ceil(arr[0]));
+		console.log("Lat is negative");
 	};
 	if (arr[1] >= 0) {
 		lonpositive = true;
 		lon = Math.floor(arr[1]).toString();
+		console.log("Lon is positive");
 	} else {
-		lon = Math.ceil(arr[1]).toString();
+		lon = "n" + Math.abs(Math.ceil(arr[1]));
+		console.log("Lon is negative");
 	};
 
 	if (latpositive) {
@@ -188,6 +192,8 @@ function getZoneQuery(arr) {
 	};
 
 	solution = solution + lat + "*" + lon;
+	console.log("Original solution: " + solution);
 	solution = solution + additionalzones;
+	console.log("Changed solution: " + solution);
 	return solution;
 }
