@@ -125,7 +125,7 @@ function authenticate(req, res, next) {
             // Make a connection the the db
             connection.query("SELECT EXISTS(SELECT 1 FROM Users WHERE email = \"" + req.body.email + "\")", function (err, rows) {
                 // Return a query "rows" that contains a 1 if the email exists, 0 if not
-                console.log("rows: ",rows[0]); // Debugging
+                console.log("rows: ",rows[0], "Object Keys: ", [Object.keys(rows[0])[0]]); // Debugging
                 if (rows[0][Object.keys(rows[0])[0]] == 1) { // Access the 0 or 1
                     console.log("Email exists");
                     connection.query("SELECT password FROM Users WHERE email = \"" + req.body.email + "\"", function (err, psswd) {
