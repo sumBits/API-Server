@@ -64,7 +64,6 @@ app.post('/nearby', function (req, res) {
 });
 
 app.post('/newUser', function (req, res) {
-    if (req.get('Object-Type') == "newuser") {
         // If the POST object is an attempt to make a new user
         pool.getConnection(function (err, connection) {
             // Make a connection the the db
@@ -84,7 +83,6 @@ app.post('/newUser', function (req, res) {
                 connection.release(); // Release db connection to pool
             });
         });
-    }
 });
 
 app.post('/login', authenticate, function (req, res) {
