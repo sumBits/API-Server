@@ -113,8 +113,8 @@ app.get('/me', function(req, res) {
 
 
 
-app.listen(8080, function () {
-    console.log('App listening on localhost:8080')
+app.listen(80, "52.10.238.99", function () {
+    console.log('App listening on server:80')
 }); // Listen on port 8080 for these posts (default http port)
 
 
