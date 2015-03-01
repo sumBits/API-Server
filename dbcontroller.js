@@ -25,7 +25,7 @@ app.use(bodyParser.urlencoded({
 })); // Add support for URL-encoded bodies
 
 // Main post checking function
-app.post('/', function (req, res) {
+app.post('/nearby', function (req, res) {
     console.log("Recieved post"); // For debugging
     if (req.get('Object-Type') == "location") {
         // If the POST recieved is a location object (expecting an array of posts in response that are from the nearby area)
@@ -38,7 +38,7 @@ app.post('/', function (req, res) {
                 if (!err) {
                     // If there is no error from the db
                     res.status(200); // Send a 200 code (meaning there was no error)
-                    res.json(rows); //  Send the json object representing the rows that were received
+                    res.send(rows); //  Send the json object representing the rows that were received
                 } // TODO create table here?
                 connection.release(); // Put the db connection back in the pool
                 res.end(); // Send the END packet thing to the request, ending the connection created by the POST from the app
@@ -107,19 +107,22 @@ function authenticate(req, res, next) {
     next();
 };
 
-function getZipcode(arr) {
-    return "80126";
-} // Currently returns default zip code
-
 function zoneLookup (arr) {
 	var solution = "zone_";
 	var lat = "";
 	var lon = "";
 
-	lat = Math.round(arr[0]);
-	lon = Math.round(arr[1]);
+	lat = Math.round(arr[0]) + "";
+	if (arr[0] < 0) {
+		solution = solution + "n";
+	};
+	solution = solution + lat;
+	lon = Math.round(arr[1]) + "";
+	if (arr[1] < 0) {
+		solution = solution + "n";
+	};
+	solution = solution + lon;
 
-	solution = solution + lat + "_" + lon;
 	return solution;
 }
 
