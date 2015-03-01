@@ -1,12 +1,18 @@
-var mysql = require('mysql') // Require mysql package
-var http = require('http') // Require http package
-var express = require('express') // Require express package
-var bodyParser = require('body-parser') // Require body-parser package
+var mysql = require('mysql'); // Require mysql package
+var http = require('http'); // Require http package
+var express = require('express'); // Require express package
+var bodyParser = require('body-parser'); // Require body-parser package
+var faker = require('faker'); //Require faker package
+var cors = require('cors'); //Require cors package
+var jwt = require('jsonwebtoken'); //Require jwt package
+var expressJwt = require('express-jwt');
 
-var user = {
+var jwtSecret = 'fjkdlsajfoew239053/3uk';
+
+var user = { //fake user database
     username: 'test',
     password: 'p'
-}
+};
 
 
 // Set up mysql pool for creating connections to db
@@ -23,6 +29,8 @@ app.use(bodyParser.json()); // Add support for JSON-encoded bodies
 app.use(bodyParser.urlencoded({
     extended: true
 })); // Add support for URL-encoded bodies
+app.use(expressJwt({secret: jwtSecret }).unless({path: ['/login']}));
+app.use(cors());
 
 // Main post checking function
 app.post('/', function (req, res) {
@@ -45,7 +53,7 @@ app.post('/', function (req, res) {
                 res.end(); // Send the END packet thing to the request, ending the connection created by the POST from the app
             });
         });
-    };
+    }
     if (req.get('Object-Type') == "nearbypostattempt") {
         // If the server recieves an object containing the post and location and user info required to make a new nearby post
         // TODO add authentication HERE, just a token verification
@@ -58,7 +66,7 @@ app.post('/', function (req, res) {
                 connection.release(); // Release the db connection back to the pool
             });
         });
-    };
+    }
 });
 
 app.post('/newUser', function (req, res) {
@@ -86,7 +94,23 @@ app.post('/newUser', function (req, res) {
 });
 
 app.post('/login', authenticate, function (req, res) {
-    res.send(user);
+    var token = jwt.sign({
+        username: user.username
+    }, jwtSecret);
+    res.send({
+        token: token,
+        user: user
+    });
+});
+
+app.get('/random-user', function(req, res) {
+    var user = faker.helpers.userCard();
+    user.avatar = faker.image.avatar();
+    res.json(user);
+});
+
+app.get('/me', function(req, res) {
+    res.send(req.user);
 });
 
 
@@ -99,16 +123,17 @@ app.listen(8080, function () {
 // UTIL FUNCTIONS
 
 function authenticate(req, res, next) {
+    console.log("Auth Called");
     var body = req.body;
     if (!body.username || !body.password) {
         res.status(400).end('Must provide username or password')
     }
     if (body.username !== user.username || body.password !== user.password) {
         res.status(401).end('Username or password incorrect');
+        console.log("logged in");
     }
     next();
-};
-
+}
 function getZipcode(arr) {
     return "80126";
 } // Currently returns default zip code
