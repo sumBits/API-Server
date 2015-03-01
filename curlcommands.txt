@@ -8,3 +8,11 @@ Test newuser:
 curl -H "Content-Type: application/json" -H "Object-Type: newuser" -d '{"email":"unique@email.com","password":"Testuserpassword","name":"testinator","age":100}' http://localhost:8080/newUser
 
 curl -H "Content-Type: application/json" -H "Object-Type: user" -d '{"username":" test", "password": "p"}' http://localhost:8080/login
+
+To use these, open a command line instance and navigate to the post testers folder
+
+Test nearby post:
+curl -H "Content-Type: application/json" -H "Object-Type: location" -d @testlocation.json http://52.11.79.134:8080
+
+Test newuser:
+curl -H "Content-Type: application/json" -H "Object-Type: newuser" -d @testuser.json http://52.11.79.134:8080/newUser
