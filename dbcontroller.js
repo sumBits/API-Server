@@ -93,7 +93,7 @@ app.post('/login', authenticate, function (req, res) {
     }, jwtSecret);
     res.send({
         token: token,
-        user: req.email
+        user: req.user
     });
 });
 
