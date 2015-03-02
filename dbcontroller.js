@@ -85,6 +85,9 @@ app.post('/newUser', function (req, res) {
                     connection.query("INSERT INTO Users (email, password, name, age) VALUES (\"" + req.body.email + "\", \"" + req.body.password + "\", \"" + req.body.name + "\", " + req.body.age + ")", function (err, rows) {
                         console.log("Inserting into users.");
                         console.log("error: ", err);
+                        if(err){
+                            return err;
+                        }
                         // Adds the user info to the Users table
                         // TODO return the token information back to the POST response
                         res.status(200).send("User successfully created").end(); // Send a confirmation that the user was created and a code 200
