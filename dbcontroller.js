@@ -25,7 +25,7 @@ app.use(bodyParser.json()); // Add support for JSON-encoded bodies
 app.use(bodyParser.urlencoded({
     extended: true
 })); // Add support for URL-encoded bodies
-app.use((expressJwt({secret: jwtSecret }).unless({path: ['/login']})));
+app.use((expressJwt({secret: jwtSecret }).unless({path: ['/login', '/newUser']})));
 app.use(cors());
 app.use(function(req, res, next) {
   res.header("Access-Control-Allow-Origin", "*");
@@ -140,6 +140,7 @@ function authenticate(req, res, next) {
                     		// Do stuff here if password is right
                             console.log("password is correct", req.body.password);
                     	} else {
+                            console.log('password is incorrect');
                     		res.status(401).end('Incorrect password')
                     	};
                     })
