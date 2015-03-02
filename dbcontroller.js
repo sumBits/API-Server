@@ -143,7 +143,9 @@ function authenticate(req, res, next) {
                 if (rows[0][Object.keys(rows[0])[0]] == 1) { // Access the 0 or 1
                     console.log("Email exists");
                     connection.query("SELECT password FROM Users WHERE email = \"" + req.body.email + "\"", function (err, psswd) {
-                    	if (psswd[0] == req.body.password) {
+			console.log(psswd[0]);
+			console.log(psswd[0].password);
+                    	if (psswd[0].password == req.body.password) {
                     		// Do stuff here if password is right
                             console.log("password is correct", req.body.password);
                     	} else {
