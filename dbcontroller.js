@@ -82,7 +82,7 @@ app.post('/newUser', function (req, res) {
                 } else {
                     console.log("Reached else in new user, meaning new user will be created.");
                     // TODO login stuff here, creating a token to send back and one to store
-                    connection.query("INSERT INTO Users (email, password, name, age) VALUES (\"" + req.body.email + "\", \"" + req.body.password + "\", \"" + req.body.name + "\", " + req.body.age + ")", function (err, rows) {
+                    connection.query('INSERT INTO Users (email, password, name, age) VALUES (req.body.email, req.body.password, req.body.name, req.body.age)', function (err, rows) {
                         console.log("Inserting into users.");
                         console.log("error: ", err);
                         if(err){
