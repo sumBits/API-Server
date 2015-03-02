@@ -138,7 +138,7 @@ function authenticate(req, res, next) {
                     })
                 } else {
                     console.log("User doesn't exist.");
-                    res.status(401).end('Incorrect email or password')
+                    res.status(400).end('Incorrect email or password')
                 }
                 connection.release(); // Release db connection to pool
             });
