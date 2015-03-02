@@ -86,7 +86,7 @@ app.post('/newUser', function (req, res) {
                         console.log("Inserting into users.");
                         console.log("error: ", err);
                         if(err){
-                            return err;
+                            res.status(500).send("The user failed to create.").end();
                         }
                         // Adds the user info to the Users table
                         // TODO return the token information back to the POST response
