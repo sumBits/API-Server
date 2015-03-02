@@ -27,6 +27,12 @@ app.use(bodyParser.urlencoded({
 })); // Add support for URL-encoded bodies
 app.use((expressJwt({secret: jwtSecret }).unless({path: ['/login']})));
 app.use(cors());
+app.use(function(req, res, next) {
+  res.header("Access-Control-Allow-Origin", "*");
+  res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
+  next();
+});
+
 
 // Main post checking function
 app.post('/nearby', function (req, res) {
