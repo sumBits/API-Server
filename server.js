@@ -10,7 +10,7 @@ var expressJwt = require('express-jwt');
 var jwtSecret = 'fjkdlsajfoew239053/3uk';
 
 // Modules
-var nearby = requre('./nearby')
+var nearby = require('./nearby')
 
 // Set up mysql pool for creating connections to db
 var pool = mysql.createPool({
