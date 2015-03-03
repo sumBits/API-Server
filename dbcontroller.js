@@ -164,36 +164,7 @@ app.listen(8080, "0.0.0.0", function () {
 
 function authenticate(req, res, next) {
     console.log("Auth Called");
-    var body = req.body;
-    if (!body.email || !body.password) {
-        res.status(400).end('Must provide email or password')
-    } else {
-        pool.getConnection(function (err, connection) {
-            // Make a connection the the db
-            connection.query("SELECT EXISTS(SELECT 1 FROM Users WHERE email = \"" + req.body.email + "\")", function (err, rows) {
-                // Return a query "rows" that contains a 1 if the email exists, 0 if not
-                console.log("rows: ", rows[0], "Object Keys: ", rows[0][Object.keys(rows[0])[0]]); // Debugging
-                if (rows[0][Object.keys(rows[0])[0]] == 1) { // Access the 0 or 1
-                    console.log("Email exists");
-                    connection.query("SELECT password FROM Users WHERE email = \"" + req.body.email + "\"", function (err, psswd) {
-                        console.log(psswd[0]);
-                        console.log(psswd[0].password);
-                        if (psswd[0].password == req.body.password) {
-                            // Do stuff here if password is right
-                            console.log("password is correct", req.body.password);
-                        } else {
-                            console.log('password is incorrect');
-                            res.status(401).end('Incorrect password');
-                        };
-                    })
-                } else {
-                    console.log("User doesn't exist.");
-                    res.status(401).end('Incorrect email or password');
-                }
-                connection.release(); // Release db connection to pool
-            });
-        });
-    };
+   
     next();
 };
 
