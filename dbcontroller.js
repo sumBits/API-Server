@@ -133,7 +133,6 @@ function authenticate(req, res, next) {
     console.log("Auth Called");
     var body = req.body;
     if (!body.email || !body.password) {
-        console.log("Previous res is ", res);
         res.status(400).end('Must provide email or password')
     } else {
         pool.getConnection(function (err, connection) {
@@ -149,7 +148,6 @@ function authenticate(req, res, next) {
                     	if (psswd[0].password == req.body.password) {
                     		// Do stuff here if password is right
                             console.log("password is correct", req.body.password);
-                            console.log("Res is ",res);
                     	} else {
                             console.log('password is incorrect');
                     		res.status(401).end('Incorrect password');
