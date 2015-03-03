@@ -151,11 +151,13 @@ function authenticate(req, res, next) {
                     	} else {
                             console.log('password is incorrect');
                     		res.status(401).write('Incorrect password');
+                            res.end();
                     	};
                     })
                 } else {
                     console.log("User doesn't exist.");
                     res.status(401).write('Incorrect email or password');
+                    res.end();
                 }
                 connection.release(); // Release db connection to pool
             });
