@@ -148,8 +148,7 @@ app.get('/random-user', function (req, res) {
     res.json(user);
 });
 
-app.post('/me', function (req, res) {
-    console.log("token sent to /me is: ", req.body.token)
+app.post('/me', authenticate, function (req, res) {
     console.log("User provided to me is: ",req.user);
     res.send(req.user);
 });
@@ -165,7 +164,11 @@ app.listen(8080, "0.0.0.0", function () {
 
 function authenticate(req, res, next) {
     console.log("Auth Called");
-   
+    jwt.verify(req.body.token, jwtSecret, function(err, decoded){
+        if(err){
+            res.status(401).end("You are not logged in.");
+        }
+    });
     next();
 };
 
