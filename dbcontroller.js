@@ -149,7 +149,7 @@ app.get('/random-user', function (req, res) {
 });
 
 app.post('/me', function (req, res) {
-    console.log("token sent to /me is: ", req.token)
+    console.log("token sent to /me is: ", req.body.token)
     console.log("User provided to me is: ",req.user);
     res.send(req.user);
 });
