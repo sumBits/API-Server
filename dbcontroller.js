@@ -135,10 +135,6 @@ function authenticate(req, res, next) {
     if (!body.email || !body.password) {
         res.status(400).end('Must provide email or password')
     } else {
-        var sendResponse = function(login){
-            if(!login)
-                res.status(401).end('Incorrect password');
-        }
         pool.getConnection(function (err, connection) {
             // Make a connection the the db
             connection.query("SELECT EXISTS(SELECT 1 FROM Users WHERE email = \"" + req.body.email + "\")", function (err, rows) {
@@ -154,7 +150,6 @@ function authenticate(req, res, next) {
                             console.log("password is correct", req.body.password);
                     	} else {
                             console.log('password is incorrect');
-                            sendResponse(false);
                     		res.status(401).end('Incorrect password');
                     	};
                     })
