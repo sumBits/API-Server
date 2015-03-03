@@ -103,10 +103,10 @@ app.post('/login', authenticate, function (req, res) {
     var token = jwt.sign({
         user: req.body.email
     }, jwtSecret);
-    res.send({
-        token: token,
-        user: req.body.email
-    });
+//    res.send({
+//        token: token,
+//        user: req.body.email
+//    });
 });
 
 app.get('/random-user', function(req, res) {
