@@ -133,7 +133,7 @@ function authenticate(req, res, next) {
     console.log("Auth Called");
     var body = req.body;
     if (!body.email || !body.password) {
-        res.status(400).write('Must provide email or password')
+        res.status(400).end('Must provide email or password')
     } else {
         pool.getConnection(function (err, connection) {
             // Make a connection the the db
@@ -150,15 +150,14 @@ function authenticate(req, res, next) {
                             console.log("password is correct", req.body.password);
                     	} else {
                             console.log('password is incorrect');
-                    		res.status(401).write('Incorrect password');
+                    		res.status(401).end('Incorrect password');
                     	};
                     })
                 } else {
                     console.log("User doesn't exist.");
-                    res.status(401).write('Incorrect email or password');
+                    res.status(401).end('Incorrect email or password');
                 }
                 connection.release(); // Release db connection to pool
-                res.end();
             });
         });
     };
