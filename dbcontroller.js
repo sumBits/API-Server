@@ -132,6 +132,7 @@ app.listen(8080, "0.0.0.0", function () {
 function authenticate(req, res, next) {
     console.log("Auth Called");
     var body = req.body;
+    var login = false;
     if (!body.email || !body.password) {
         res.status(400).end('Must provide email or password')
     } else {
@@ -147,6 +148,7 @@ function authenticate(req, res, next) {
                         console.log(psswd[0].password);
                     	if (psswd[0].password == req.body.password) {
                     		// Do stuff here if password is right
+                            login = true;
                             console.log("password is correct", req.body.password);
                     	} else {
                             console.log('password is incorrect');
@@ -161,6 +163,9 @@ function authenticate(req, res, next) {
             });
         });
     };
+    if(!login){
+        res.status(401).end("Authentication failure.");
+    }
     next();
 };
 
