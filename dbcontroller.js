@@ -148,6 +148,7 @@ function authenticate(req, res, next) {
                     	if (psswd[0].password == req.body.password) {
                     		// Do stuff here if password is right
                             console.log("password is correct", req.body.password);
+                            console.log("Res is ",res);
                     	} else {
                             console.log('password is incorrect');
                     		res.status(401).end('Incorrect password');
