@@ -42,9 +42,7 @@ app.use(function (req, res, next) {
 // Read-only post checking, while user isn't logged in
 app.post('/nearbyRO', function(req, res) {
     console.log("Recieved post requesting Read-Only posts");
-    if (req.get('Object-Type') == 'location') {
-        nearby.getNearby(req, res, pool);
-    };
+    nearby.getNearby(req, res, pool);
 });
 
 // Main post checking function
