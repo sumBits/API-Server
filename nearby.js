@@ -40,3 +40,97 @@ exports.postNearby = function(req, res,  pool) {
         });
     });
 };
+
+// UTIL FUNCIONS
+
+function zoneLookup(arr) {
+    var solution = "zone_";
+    var lat = "";
+    var lon = "";
+
+    lat = Math.round(arr[0]) + "";
+    if (arr[0] < 0) {
+        solution = solution + "n";
+    };
+    solution = solution + lat;
+    lon = Math.round(arr[1]) + "";
+    if (arr[1] < 0) {
+        solution = solution + "n";
+    };
+    solution = solution + lon;
+
+    return solution;
+};
+
+function getZoneQuery(arr) {
+    var lat = "";
+    var lon = "";
+    var solution = "SELECT * FROM worldwide UNION ALL SELECT * FROM zone_";
+    var additionalzones = "";
+
+    var lonpositive = false;
+    var latpositive = false;
+    var closetolat = false;
+    var latclosetof = false;
+    var closetolon = false;
+    var lonclosetof = false;
+
+    if (arr[0] >= 0) {
+        latpositive = true;
+        lat = Math.floor(arr[0]).toString();
+        console.log("Lat is positive");
+    } else {
+        lat = "n" + Math.abs(Math.ceil(arr[0]));
+        console.log("Lat is negative");
+    };
+    if (arr[1] >= 0) {
+        lonpositive = true;
+        lon = Math.floor(arr[1]).toString();
+        console.log("Lon is positive");
+    } else {
+        lon = "n" + Math.abs(Math.ceil(arr[1]));
+        console.log("Lon is negative");
+    };
+
+    if (latpositive) {
+        if (Math.abs(Math.round(arr[0]) - arr[0]) < 0.1) {
+            closetolat = true;
+            if (Math.round(arr[0]) == Math.floor(arr[0])) {
+                latclosetof = true;
+            };
+            additionalzones = additionalzones + " UNION ALL SELECT * FROM zone_" + Math.round(arr[0]) + "_" + lon;
+        };
+    } else {
+        if (Math.abs(Math.round(arr[0]) - arr[0]) < 0.1) {
+            closetolat = true;
+            if (Math.round(arr[0]) == Math.ceil(arr[0])) {};
+            additionalzones = additionalzones + " UNION ALL SELECT * FROM zone_n" + Math.abs(Math.round(arr[0])) + "_" + lon;
+        };
+    };
+
+    if (lonpositive) {
+        if (Math.abs(Math.round(arr[1]) - arr[1]) < 0.1) {
+            closetolat = true;
+            if (Math.round(arr[1]) == Math.floor(arr[1])) {
+                lonclosetof = true;
+            };
+            additionalzones = additionalzones + " UNION ALL SELECT * FROM zone_" + lat + "_" + Math.round(arr[1]);
+        };
+    } else {
+        if (Math.abs(Math.round(arr[1]) - arr[1]) < 0.1) {
+            closetolat = true;
+            if (Math.round(arr[1]) == Math.ceil(arr[1])) {};
+            additionalzones = additionalzones + " UNION ALL SELECT * FROM zone_" + lat + "_n" + Math.abs(Math.round(arr[1]));
+        };
+    };
+
+    if (closetolat && closetolon) {
+        // TODO add code to add the corner zones to the query
+    };
+
+    solution = solution + lat + "_" + lon;
+    console.log("Original solution: " + solution);
+    solution = solution + additionalzones;
+    console.log("Changed solution: " + solution);
+    return solution;
+};
