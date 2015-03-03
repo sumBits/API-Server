@@ -38,6 +38,12 @@ app.use(function (req, res, next) {
     next();
 });
 
+app.post('/nearbyRO', function(req, res) {
+    console.log("Recieved post requesting Read-Only posts");
+    if (req.get('Object-Type') == 'location') {
+        nearby.getNearby(req, res, pool);
+    };
+});
 
 // Main post checking function
 app.post('/nearby', function (req, res) {
