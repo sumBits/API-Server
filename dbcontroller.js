@@ -163,6 +163,7 @@ function authenticate(req, res, next) {
             });
         });
     };
+    console.log("login boolean value: ",login);
     if(!login){
         res.status(401).end("Authentication failure.");
     }
