@@ -133,6 +133,7 @@ function authenticate(req, res, next) {
     console.log("Auth Called");
     var body = req.body;
     if (!body.email || !body.password) {
+        console.log("Previous res is ", res);
         res.status(400).end('Must provide email or password')
     } else {
         pool.getConnection(function (err, connection) {
