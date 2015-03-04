@@ -7,11 +7,7 @@ var cors = require('cors'); //Require cors package
 var jwt = require('jsonwebtoken'); //Require jwt package
 var expressJwt = require('express-jwt');
 
-var jwtSecret = 'fjkdlsajfoew239053/3uk';
-
-// Modules
-var nearby = require('./nearby');
-var users = require('./users');
+var jwtSecret = 'fjkdlsajfoew239053/3uk'
 
 // Set up mysql pool for creating connections to db
 var pool = mysql.createPool({
