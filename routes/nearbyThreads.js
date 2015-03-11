@@ -1,6 +1,7 @@
 'use strict';
 
-var nearby = require('../controllers/nearbyThreads.js');
+var nearby = require('../controllers/nearbyThreads');
+var users = require('../controllers/users');
 
 module.exports = function (app, pool) {
     
@@ -12,7 +13,7 @@ module.exports = function (app, pool) {
 
     // Main nearby post checking function
     //needs authentication step included
-    app.post('/nearby', function (req, res) {
+    app.post('/nearby', users.authenticate, function (req, res) {
         console.log("Recieved post"); // For debugging
         if (req.get('Object-Type') == "location") {
             nearby.getNearby(req, res, pool);
