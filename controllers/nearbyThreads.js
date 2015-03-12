@@ -24,7 +24,7 @@ exports.postNearby = function(req, res,  pool) {
     // TODO add authentication HERE, just a token verification
     pool.getConnection(function (err, connection) {
         // Create the conneciton to the database
-        connection.query("INSERT INTO " + zoneLookup([req.body.latitude, req.body.longitude]) + " (title,owner,category,timestamp,latitude,longitude,content) VALUES (\"" + req.body.post.title + "\", \"" + req.body.user.name + "\", \"" + req.body.post.category + "\", Now(), " + req.body.post.latitude + ", " + req.body.post.longitude + ", \"" + req.body.post.content + "\")", function (err, rows) {
+        connection.query("INSERT INTO " + zoneLookup([req.body.latitude, req.body.longitude]) + " (title,owner,category,timestamp,latitude,longitude,content) VALUES (\"" + req.body.post.title + "\", \"" + req.user + "\", \"" + req.body.post.category + "\", Now(), " + req.body.latitude + ", " + req.body.longitude + ", \"" + req.body.post.content + "\")", function (err, rows) {
             // Insert the post information into the square it belongs
             res.status(200).end(); // Send a status 200 (success) and end code back to the app
             connection.release(); // Release the db connection back to the pool

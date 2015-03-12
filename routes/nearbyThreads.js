@@ -13,14 +13,8 @@ module.exports = function (app, pool) {
 
     // Main nearby post checking function
     //needs authentication step included
-    app.post('/nearby', users.authenticate, function (req, res) {
-        console.log("Recieved post"); // For debugging
-        if (req.get('Object-Type') == "location") {
-            nearby.getNearby(req, res, pool);
-        }
-        if (req.get('Object-Type') == "nearbypostattempt") {
-            nearby.postNearby(req, res, pool);
-        }
+    app.post('/nearbyPost', users.authenticate, function (req, res) {
+        nearby.postNearby(req, res, pool);
     });
     
 };
