@@ -30,6 +30,7 @@ exports.postNearby = function(req, res,  pool) {
                 res.status(200).end(); // Send a status 200 (success) and end code back to the app
             }else{
                 res.status(500).send("There was an error posting into this Thread.").end();
+                console.log("Error posting into nearby threads: ", err);
             }
             connection.release(); // Release the db connection back to the pool
         });
