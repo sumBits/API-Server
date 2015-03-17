@@ -1,0 +1,7 @@
+{
+	"title":"Testy test",
+	"category":"Test",
+	"latitude":38,
+	"longitude":-104,
+	"content":"This is a post that should return an error"
+}
