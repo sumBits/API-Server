@@ -1,6 +1,6 @@
-CREATE PROCEDURE `new_procedure` (in zname VARCHAR(15), in post SET)
+CREATE PROCEDURE `post_nearby` (IN z text, IN post text)
 BEGIN
-	if COUNT(SELECT * FROM information_schema.tables WHERE TABLE_SCHEMA = 'ThreadsDB' AND table_name = 'zone_39_n106')=0 then
+	if (select count(*) from information_schema.tables WHERE TABLE_SCHEMA = 'ThreadsDB' AND table_name = z)=0 then
 	  CREATE TABLE `ThreadsDB`.`zone_#_#` (
 		`id` INT(11) NOT NULL AUTO_INCREMENT,
 		`title` VARCHAR(255) NOT NULL,
@@ -14,5 +14,5 @@ BEGIN
 		UNIQUE INDEX `title_UNIQUE` (`title` ASC))
 	  ENGINE = MyISAM;
 	end if;
-	INSERT INTO zone_39_n106 SET ;
+	INSERT INTO z SET post;
 END
