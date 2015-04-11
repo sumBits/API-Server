@@ -59,12 +59,12 @@ function zoneLookup(arr) {
     if (arr[0] < 0) {
         solution = solution + "n";
     };
-    solution = solution + abs(lat) + "_";
+    solution = solution + Math.abs(lat) + "_";
     lon = Math.round(arr[1]) + "";
     if (arr[1] < 0) {
         solution = solution + "n";
     };
-    solution = solution + abs(lon);
+    solution = solution + Math.abs(lon);
 
     return solution;
 };
