@@ -55,12 +55,12 @@ function zoneLookup(arr) {
     var lat = "";
     var lon = "";
 
-    lat = Math.floor(Math.abs(arr[0])) + "";
+    lat = Math.round(arr[0]) + "";
     if (arr[0] < 0) {
         solution = solution + "n";
     };
     solution = solution + Math.abs(lat) + "_";
-    lon = Math.floor(Math.abs(arr[1])) + "";
+    lon = Math.round(arr[1]) + "";
     if (arr[1] < 0) {
         solution = solution + "n";
     };
