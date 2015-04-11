@@ -25,11 +25,11 @@ exports.postNearby = function(req, res,  pool) {
     // TODO add authentication HERE, just a token verification
     pool.getConnection(function (err, connection) {
         // Create the conneciton to the database
-        console.log("Post attempt: latitude - " + req.body.latitude + " - longitude - " + req.body.longitude); // Debugging
-        connection.query("CALL post_nearby(\'" + zoneLookup([req.body.latitude, req.body.longitude]) + "\')", req.body, function (err, rows) {
+        console.log("Post attempt: latitude - " + req.body.post.latitude + " - longitude - " + req.body.post.longitude); // Debugging
+        connection.query("CALL post_nearby(\'" + zoneLookup([req.body.post.latitude, req.body.post.longitude]) + "\')", req.body.post, function (err, rows) {
             if(!err){
                 // Successfully created table if necessary
-                connection.query("INSERT INTO \"" + zoneLookup([req.body.latitude, req.body.longitude]) + "\" SET ?", req.body, function (err, rows) {
+                connection.query("INSERT INTO \'" + zoneLookup([req.body.post.latitude, req.body.post.longitude]) + "\' SET ?", req.body.post, function (err, rows) {
                     if(!err){
                         // Inserted Successfully!
                         res.status(200).end(); // Send a status 200 (success) and end code back to the app
