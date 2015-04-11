@@ -25,6 +25,7 @@ exports.postNearby = function(req, res,  pool) {
     // TODO add authentication HERE, just a token verification
     pool.getConnection(function (err, connection) {
         // Create the conneciton to the database
+        console.log("Post attempt: latitude - " + req.body.latitude + " - longitude - " + req.body.longitude); // Debugging
         connection.query("CALL post_nearby(" + zoneLookup([req.body.latitude, req.body.longitude]) + ")", req.body, function (err, rows) {
             if(!err){
                 // Successfully created table if necessary
