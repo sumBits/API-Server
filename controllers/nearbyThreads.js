@@ -37,6 +37,7 @@ exports.postNearby = function(req, res,  pool) {
                         console.log("Error posting into nearby threads: ", err);
                     }
                     connection.release(); // Release the db connection back to the pool
+                });
             }else{
                 // Did not successfully create table
                 res.status(500).send("There was an error posting into this Thread.").end();
