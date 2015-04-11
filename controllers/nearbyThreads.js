@@ -1,5 +1,6 @@
 'use strict';
 
+// Using a location json, returns array of nearby posts
 exports.getNearby = function(req, res, pool) {
 	// If the POST recieved is a location object (expecting an array of posts in response that are from the nearby area)
     console.log("Object type is location"); // Debugging
@@ -24,15 +25,23 @@ exports.postNearby = function(req, res,  pool) {
     // TODO add authentication HERE, just a token verification
     pool.getConnection(function (err, connection) {
         // Create the conneciton to the database
-        connection.query("INSERT INTO " + zoneLookup([req.body.latitude, req.body.longitude]) + " SET ?", req.body, function (err, rows) {
+        connection.query("CALL post_nearby(" + zoneLookup([req.body.latitude, req.body.longitude]) + ")", req.body, function (err, rows) {
             if(!err){
-                // Insert the post information into the square it belongs
-                res.status(200).end(); // Send a status 200 (success) and end code back to the app
+                // Successfully created table if necessary
+                connection.query("INSERT INTO " + zoneLookup([req.body.latitude, req.body.longitude]) + " SET ?", req.body, function (err, rows) {
+                    if(!err){
+                        // Inserted Successfully!
+                        res.status(200).end(); // Send a status 200 (success) and end code back to the app
+                    }else{
+                        res.status(500).send("There was an error posting into this Thread.").end();
+                        console.log("Error posting into nearby threads: ", err);
+                    }
+                    connection.release(); // Release the db connection back to the pool
             }else{
+                // Did not successfully create table
                 res.status(500).send("There was an error posting into this Thread.").end();
                 console.log("Error posting into nearby threads: ", err);
             }
-            connection.release(); // Release the db connection back to the pool
         });
     });
 };
