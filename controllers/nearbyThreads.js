@@ -26,7 +26,7 @@ exports.postNearby = function(req, res,  pool) {
     pool.getConnection(function (err, connection) {
         // Create the conneciton to the database
         console.log("Post attempt: latitude - " + req.body.latitude + " - longitude - " + req.body.longitude); // Debugging
-        connection.query("CALL post_nearby(" + zoneLookup([req.body.latitude, req.body.longitude]) + ")", req.body, function (err, rows) {
+        connection.query("CALL post_nearby(\'" + zoneLookup([req.body.latitude, req.body.longitude]) + "\')", req.body, function (err, rows) {
             if(!err){
                 // Successfully created table if necessary
                 connection.query("INSERT INTO \"" + zoneLookup([req.body.latitude, req.body.longitude]) + "\" SET ?", req.body, function (err, rows) {
