@@ -29,7 +29,7 @@ exports.postNearby = function(req, res,  pool) {
         connection.query("CALL post_nearby(\'" + zoneLookup([req.body.post.latitude, req.body.post.longitude]) + "\')", req.body.post, function (err, rows) {
             if(!err){
                 // Successfully created table if necessary
-                connection.query("INSERT INTO \'" + zoneLookup([req.body.post.latitude, req.body.post.longitude]) + "\' SET ?", req.body.post, function (err, rows) {
+                connection.query("INSERT INTO " + zoneLookup([req.body.post.latitude, req.body.post.longitude]) + " SET ?", req.body.post, function (err, rows) {
                     if(!err){
                         // Inserted Successfully!
                         res.status(200).end(); // Send a status 200 (success) and end code back to the app
