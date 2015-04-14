@@ -69,6 +69,34 @@ function zoneLookup(arr) {
     return solution;
 };
 
+function getZoneQueryRedesign(arr) {
+	var lat = [];
+	var lon = [];
+	var solution = "SELECT * FROM worldwide UNION ALL SELECT * FROM zone_"
+
+	if (arr[0] < 0) {
+		lat.push("n" + Math.floor(Math.abs(arr[0])));
+	} else {
+		lat.push(Math.floor(Math.abs(arr[0]))+"");
+	};
+
+	if (arr[1] < 0) {
+		lat.push("n" + Math.floor(Math.abs(arr[1])));
+	} else {
+		lat.push(Math.floor(Math.abs(arr[1]))+"");
+	};
+
+	if (Math.abs(Math.round(arr[0]) - arr[0]) < 0.1) {
+		if (Math.round(Math.abs(arr[0])) > Math.abs(arr[0])) {
+			if (arr[0] > 0) {
+				lat.push((Math.floor(Math.abs(arr[0]+1))+"");
+			} else {
+				lat.push("n" + Math.floor(Math.abs(arr[0]}+1)));
+			}
+		}
+	};
+}
+
 function getZoneQuery(arr) {
     var lat = "";
     var lon = "";
