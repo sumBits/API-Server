@@ -70,8 +70,10 @@ function zoneLookup(arr) {
 };
 
 function getZoneQueryRedesign(arr) {
+    // Start with empty arrays for the latitude and longitude values to come
 	var lat = [];
 	var lon = [];
+    // Start with the known beginning of the solution
 	var solution = "SELECT * FROM worldwide UNION ALL SELECT * FROM zone_"
 
 	if (arr[0] < 0) {
@@ -89,12 +91,53 @@ function getZoneQueryRedesign(arr) {
 	if (Math.abs(Math.round(arr[0]) - arr[0]) < 0.1) {
 		if (Math.round(Math.abs(arr[0])) > Math.abs(arr[0])) {
 			if (arr[0] > 0) {
-				lat.push((Math.floor(Math.abs(arr[0]+1))+"");
+				lat.push(Math.floor(Math.abs(arr[0]+1))+"");
+                lon.push(lon[0]);
 			} else {
-				lat.push("n" + Math.floor(Math.abs(arr[0]}+1)));
-			}
-		}
+				lat.push("n" + Math.floor(Math.abs(arr[0])+1));
+                lon.push(lon[0]);
+			};
+		} else {
+            if (arr[0] > 0) {
+                lat.push(Math.floor(Math.abs(arr[0]-1))+"");
+                lon.push(lon[0]);
+            } else {
+                lat.push("n" + Math.floor(Math.abs(arr[0])-1));
+                lon.push(lon[0]);
+            };
+        }
 	};
+
+    if (Math.abs(Math.round(arr[1]) - arr[1]) < 0.1) {
+        if (Math.round(Math.abs(arr[1])) > Math.abs(arr[1])) {
+            if (arr[1] > 0) {
+                lon.push(Math.floor(Math.abs(arr[1]+1))+"");
+                lat.push(lat[0]);
+            } else {
+                lon.push("n" + Math.floor(Math.abs(arr[1])+1));
+                lat.push(lat[0]);
+            };
+        } else {
+            if (arr[1] > 0) {
+                lon.push(Math.floor(Math.abs(arr[1]-1))+"");
+                lat.push(lat[0]);
+            } else {
+                lon.push("n" + Math.floor(Math.abs(arr[1])-1));
+                lat.push(lat[0]);
+            };
+        }
+    };
+
+    if (lat.length == 3 && lon.length == 3) {
+        // We have a corner!
+        // It should be much much easier to write the code this way... I hope
+        lat.push(lat[1]);
+        lon.push(lon[2]);
+        // Boom. Much easier.
+    };
+
+    // Here is where the real query-making code starts. Oh boy.
+    
 }
 
 function getZoneQuery(arr) {
