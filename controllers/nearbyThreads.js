@@ -7,7 +7,7 @@ exports.getNearby = function(req, res, pool) {
     console.log(req.body.latitude); // Debugging
     console.log(req.body.longitude); // Debugging
     pool.getConnection(function (err, connection) { // Create the connection to the databasae, passed as connection to the function
-        connection.query(getZoneQuery([req.body.latitude, req.body.longitude]), function (err, rows) { // Send the query asking for the full table of that zip code and the 00000 zip code to the db, returns the rows json object, passed to the function
+        connection.query(getZoneQueryRedesign([req.body.latitude, req.body.longitude]), function (err, rows) { // Send the query asking for the full table of that zip code and the 00000 zip code to the db, returns the rows json object, passed to the function
             console.log(rows); // Debugging
             if (!err) {
                 // If there is no error from the db
@@ -74,7 +74,7 @@ function getZoneQueryRedesign(arr) {
 	var lat = [];
 	var lon = [];
     // Start with the known beginning of the solution
-	var solution = "SELECT * FROM worldwide UNION ALL SELECT * FROM zone_"
+	var solution = "Set @s = 'SELECT * FROM worldwide';\n"
 
 	if (arr[0] < 0) {
 		lat.push("n" + Math.floor(Math.abs(arr[0])));
@@ -138,6 +138,11 @@ function getZoneQueryRedesign(arr) {
 
     // Here is where the real query-making code starts. Oh boy.
     
+    for (var i = 0; i < lat.length; i++) {
+        solution = solution + "IF (EXISTS (SELECT " + "zone_"+ lat[i] + "_" + lon[i] + " FROM information_schema.tables)) then SET @s=concat(@s, ' UNION ALL SELECT * FROM " + "zone_"+ lat[i] + "_" + lon[i] + "'); END IF;";
+    };
+
+    solution = solution + "PREPARE stm FROM @s; EXECUTE stm;";
 }
 
 function getZoneQuery(arr) {
