@@ -83,9 +83,9 @@ function getZoneQueryRedesign(arr) {
 	};
 
 	if (arr[1] < 0) {
-		lat.push("n" + Math.floor(Math.abs(arr[1])));
+		lon.push("n" + Math.floor(Math.abs(arr[1])));
 	} else {
-		lat.push(Math.floor(Math.abs(arr[1]))+"");
+		lon.push(Math.floor(Math.abs(arr[1]))+"");
 	};
 
 	if (Math.abs(Math.round(arr[0]) - arr[0]) < 0.1) {
