@@ -143,6 +143,8 @@ function getZoneQueryRedesign(arr) {
     };
 
     solution = solution + "PREPARE stm FROM @s; EXECUTE stm;";
+    console.log(solution);
+    return solution;
 }
 
 function getZoneQuery(arr) {
