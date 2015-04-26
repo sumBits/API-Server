@@ -13,7 +13,9 @@ exports.getNearby = function(req, res, pool) {
                 // If there is no error from the db
                 res.status(200); // Send a 200 code (meaning there was no error)
                 res.send(rows); //  Send the json object representing the rows that were received
-            } // TODO create table here?
+            } else {
+                console.log(err);
+            }
             connection.release(); // Put the db connection back in the pool
             res.end(); // Send the END packet thing to the request, ending the connection created by the POST from the app
         });
