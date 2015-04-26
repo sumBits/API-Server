@@ -74,7 +74,7 @@ function getZoneQueryRedesign(arr) {
 	var lat = [];
 	var lon = [];
     // Start with the known beginning of the solution
-	var solution = "Delimeter //\nDROP PROCEDURE IF EXISTS 'getnearby' // \n CREATE PROCEDURE 'getnearby' () \nBEGIN \nSet @s = 'SELECT * FROM worldwide';\n"
+	var solution = "delimiter //\nDROP PROCEDURE IF EXISTS 'getnearby' // \n CREATE PROCEDURE 'getnearby' () \nBEGIN \nSet @s = 'SELECT * FROM worldwide';\n"
 
 	if (arr[0] < 0) {
 		lat.push("n" + Math.floor(Math.abs(arr[0])));
@@ -142,7 +142,7 @@ function getZoneQueryRedesign(arr) {
         solution = solution + "IF (EXISTS (SELECT " + "zone_"+ lat[i] + "_" + lon[i] + " FROM information_schema.tables)) then SET @s=concat(@s, ' UNION ALL SELECT * FROM " + "zone_"+ lat[i] + "_" + lon[i] + "'); END IF; \n";
     };
 
-    solution = solution + "PREPARE stm FROM @s; \nEXECUTE stm; \n END // \n CALL getnearby() // \nDelimeter ;";
+    solution = solution + "PREPARE stm FROM @s; \nEXECUTE stm; \n END //  \ndelimiter ; \nCALL getnearby();";
     console.log(solution);
     return solution;
 }
