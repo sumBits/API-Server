@@ -57,8 +57,7 @@ exports.login = function (req, res, pool) {
                         if (psswd[0].password == req.body.password) {
                             res.send({
                                 token: token,
-                                user: req.body.email,
-                                username: req.body.name
+                                user: req.body.email
                             }).end();
                             console.log("password is correct", req.body.password);
                         } else {
