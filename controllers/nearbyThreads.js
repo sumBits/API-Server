@@ -28,7 +28,7 @@ exports.postNearby = function(req, res,  pool) {
     pool.getConnection(function (err, connection) {
         // Create the conneciton to the database
         console.log("Post attempt: latitude - " + req.body.post.latitude + " - longitude - " + req.body.post.longitude); // Debugging
-        connection.query("CALL post_nearby(" + req.body.latitude + ", " + req.body.longitude + ", " + req.body.post.content + ", " + req.body.post.author + ")", req.body.post, function (err, rows) {
+        connection.query("CALL post_nearby(" + req.body.latitude + ", " + req.body.longitude + ", \'" + req.body.post.content + "\', \'" + req.body.post.author + "\'')", function (err, rows) {
             if(!err){
                 // Inserted Successfully!
                 res.status(200).end(); // Send a status 200 (success) and end code back to the app
