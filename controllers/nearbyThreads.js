@@ -7,12 +7,13 @@ exports.getNearby = function(req, res, pool) {
     console.log(req.body.latitude); // Debugging
     console.log(req.body.longitude); // Debugging
     pool.getConnection(function (err, connection) { // Create the connection to the databasae, passed as connection to the function
-        connection.query("Call getnearby(" + req.body.latitude + "," + req.body.longitude + ");", function (err, rows) { // Send the query asking for the full table of that zip code and the 00000 zip code to the db, returns the rows json object, passed to the function
-            console.log(rows); // Debugging
+        //connection.query("Call getnearby(" + req.body.latitude + "," + req.body.longitude + ");", function (err, rows) { // Send the query asking for the full table of that zip code and the 00000 zip code to the db, returns the rows json object, passed to the function
+        connection.query("Call getnearby(" + 5 + "," + 5 + ");", function (err, rows) { // For Debugging
+            console.log(rows[0]); // Debugging
             if (!err) {
                 // If there is no error from the db
                 res.status(200); // Send a 200 code (meaning there was no error)
-                res.send(rows); //  Send the json object representing the rows that were received
+                res.send(rows[0]); //  Send the json object representing the rows that were received
             } else {
                 console.log(err);
             }
