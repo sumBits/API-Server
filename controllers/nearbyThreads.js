@@ -30,6 +30,7 @@ exports.postNearby = function(req, res,  pool) {
         // Create the conneciton to the database
         console.log("Post attempt: latitude - " + req.body.post.latitude + " - longitude - " + req.body.post.longitude); // Debugging
         console.log("content - " + req.body.post.content + " - author - " + req.body.post.author);
+        console.log("Exact SQL query: " + "CALL postnearby(" + req.body.post.latitude + ", " + req.body.post.longitude + ", \"" + req.body.post.content + "\", \"" + req.body.post.author + "\")");
         connection.query("CALL postnearby(" + req.body.post.latitude + ", " + req.body.post.longitude + ", \"" + req.body.post.content + "\", \"" + req.body.post.author + "\")", function (err, rows) {
             if(!err){
                 // Inserted Successfully!
