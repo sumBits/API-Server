@@ -34,6 +34,7 @@ exports.postNearby = function(req, res,  pool) {
         connection.query("CALL postnearby(" + req.body.post.latitude + ", " + req.body.post.longitude + ", \"" + req.body.post.content + "\", \"" + req.body.post.author + "\")", function (err, rows) {
             if(!err){
                 // Inserted Successfully!
+		console.log(rows);
                 res.status(200).end(); // Send a status 200 (success) and end code back to the app
             }else{
                 res.status(500).send("There was an error posting into this Thread.").end();
