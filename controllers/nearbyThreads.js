@@ -50,7 +50,7 @@ exports.upvote = function(req, res, pool){
     var postId = req.body.data;
     pool.getConnection(function(err, connection){
         console.log("Upvote attempt for post: " + postId);
-        connection.query("CALL upvote(" + req.postid + ");", function(err, rows){
+        connection.query("CALL upvote(" + postId + ");", function(err, rows){
             if(!err){
                 console.log("Upvote successful.");
                 res.status(200).end();
@@ -66,7 +66,7 @@ exports.downvote = function(req, res, pool){
     var postId = req.body.data;
     pool.getConnection(function(err, connection){
         console.log("Downvote attempt for post: " + postId);
-        connection.query("CALL downvote(" + req.postid + ");", function(err, rows){
+        connection.query("CALL downvote(" + postId + ");", function(err, rows){
             if(!err){
                 console.log("Downvote successful.");
                 res.status(200).end();
