@@ -12,8 +12,10 @@ BEGIN
 		FROM posts
         WHERE postid=id;
 	
-	SET @size = .5*.1*(10*LN(ABS(votecount+1))+20);
-    SET @g = CONCAT('POLYGON(',x(@loc)-@size,' ',y(@loc)-@size,',',x(@loc)-@size,' ',y(@loc)+@size,',',x(@loc)+@size,' ',y(@loc)-@size,',',x(@loc)+@size,' ',y(@loc)+@size,')');
+	SET @size = .5*.01*(10*LN(ABS(@votecount+1))+20);
+	SELECT x(@loc) into @x;
+    SELECT y(@loc) into @y;
+	SET @g = CONCAT('POLYGON((',@x-@size,' ',@y-@size,',',@x-@size,' ',@y+@size,',',@x+@size,' ',@y+@size,',',@x+@size,' ',@y-@size,',',@x-@size,' ',@y-@size,'))');
 	
-    UPDATE posts SET vote = vote + 1, lookuprange = geomfromtext(@g) WHERE postid=id;
+	UPDATE posts SET vote = vote + 1, lookuprange = geomfromtext(@g) WHERE postid=id;
 END
