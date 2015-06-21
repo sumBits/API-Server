@@ -47,19 +47,19 @@ exports.postNearby = function(req, res,  pool) {
 
 exports.upvote = function(req, res, pool){
     var postId = req.postid;
-    pool.getConnection(function(err, connection){
-        console.log("Upvote attempt for post: " + postId);
-        connection.query("CALL upvote(" + req.postid + ");", function(err, rows){
-            if(!err){
-                console.log("Upvote successful.");
-                res.status(200).end();
-            }else{
-                res.status(500).send("There was an error upvoting this thread.").end();
-                console.log("Error upvoting thread.");
-            }
-            connection.release();
-        });
-    });
+//    pool.getConnection(function(err, connection){
+//        console.log("Upvote attempt for post: " + postId);
+//        connection.query("CALL upvote(" + req.postid + ");", function(err, rows){
+//            if(!err){
+//                console.log("Upvote successful.");
+//                res.status(200).end();
+//            }else{
+//                res.status(500).send("There was an error upvoting this thread.").end();
+//                console.log("Error upvoting thread.");
+//            }
+//            connection.release();
+//        });
+//    });
 };
 exports.downvote = function(req, res, pool){
     var postId = req.postid;
