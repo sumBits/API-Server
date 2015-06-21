@@ -62,6 +62,7 @@ exports.upvote = function(req, res, pool){
     });
 };
 exports.downvote = function(req, res, pool){
+    console.log(req.params);
     var postId = req.params.id;
     pool.getConnection(function(err, connection){
         console.log("Downvote attempt for post: " + postId);
