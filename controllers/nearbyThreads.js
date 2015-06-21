@@ -46,8 +46,9 @@ exports.postNearby = function(req, res,  pool) {
 };
 
 exports.upvote = function(req, res, pool){
-    console.log(req.params);
+    console.log("Request is: " + req);
     var postId = req.params.id;
+    console.log("post id is " + postId);
     pool.getConnection(function(err, connection){
         console.log("Upvote attempt for post: " + postId);
         connection.query("CALL upvote(" + req.postid + ");", function(err, rows){
