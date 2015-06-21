@@ -56,7 +56,7 @@ exports.upvote = function(req, res, pool){
                 res.status(200).end();
             }else{
                 res.status(500).send("There was an error upvoting this thread.").end();
-                console.log("Error upvoting thread.");
+                console.log("Error upvoting thread: " + err);
             }
             connection.release();
         });
