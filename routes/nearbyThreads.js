@@ -17,4 +17,12 @@ module.exports = function (app, pool) {
         nearby.postNearby(req, res, pool);
     });
     
+    app.post('/upvote', function(req,res){
+        nearby.upvote(req, res, pool);
+    });
+    
+    app.post('/downvote', function(req,res){
+        nearby.downvote(req, res, pool);
+    });
+    
 };
