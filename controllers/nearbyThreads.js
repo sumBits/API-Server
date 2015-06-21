@@ -47,7 +47,7 @@ exports.postNearby = function(req, res,  pool) {
 
 exports.upvote = function(req, res, pool){
     console.log("req body is " + JSON.stringify(req.body));
-    var postId = req.body.data.id;
+    var postId = req.body.data;
     pool.getConnection(function(err, connection){
         console.log("Upvote attempt for post: " + postId);
         connection.query("CALL upvote(" + req.postid + ");", function(err, rows){
@@ -63,7 +63,7 @@ exports.upvote = function(req, res, pool){
     });
 };
 exports.downvote = function(req, res, pool){
-    var postId = req.body.data.id;
+    var postId = req.body.data;
     pool.getConnection(function(err, connection){
         console.log("Downvote attempt for post: " + postId);
         connection.query("CALL downvote(" + req.postid + ");", function(err, rows){
