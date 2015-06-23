@@ -26,7 +26,7 @@ app.use(bodyParser.urlencoded({
 app.use((expressJwt({
     secret: jwtSecret
 }).unless({
-    path: ['/login', '/newUser', '/nearbyRO']
+    path: ['/login', '/newUser', '/nearbyRO', '/upvote', '/downvote']
 })));
 app.use(cors());
 app.use(function (req, res, next) {
