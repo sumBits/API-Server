@@ -26,7 +26,7 @@ app.use(bodyParser.urlencoded({
 app.use((expressJwt({
     secret: jwtSecret
 }).unless({
-    path: ['/login', '/newUser', '/nearbyRO', '/upvote', '/downvote']
+    path: ['/login', '/newUser', '/nearbyRO', '/upvote', '/downvote', '/me']
 })));
 app.use(cors());
 app.use(function (req, res, next) {
@@ -35,9 +35,9 @@ app.use(function (req, res, next) {
     next();
 });
 
-require('./routes/nearbyThreads')(app,pool);
-require('./routes/userThreads')(app,pool);
-require('./routes/users')(app,pool);
+require('./routes/nearbyThreads')(app, pool);
+require('./routes/userThreads')(app, pool);
+require('./routes/users')(app, pool);
 
 app.listen(8080, "0.0.0.0", function () {
     console.log('App listening on server:8080')
