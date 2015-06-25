@@ -1,8 +1,6 @@
 CREATE DEFINER=`sumBits`@`%` PROCEDURE `upvote`(IN id INT)
 BEGIN
 	DECLARE votecount INT;
-    DECLARE size DOUBLE;
-    DECLARE g TEXT;
     DECLARE loc POINT;
 	SELECT vote INTO votecount 
 		FROM posts 

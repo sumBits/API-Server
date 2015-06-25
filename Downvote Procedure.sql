@@ -1,15 +1,13 @@
 CREATE DEFINER=`sumBits`@`%` PROCEDURE `downvote`(IN id INT)
 BEGIN
 	DECLARE votecount INT;
-    DECLARE size DOUBLE;
-    DECLARE g TEXT;
     DECLARE loc POINT;
-	SELECT vote INTO @votecount 
+	SELECT vote INTO votecount 
 		FROM posts 
         WHERE postid=id;
 	IF @votecount > -5
     THEN
-		SELECT location INTO @loc
+		SELECT location INTO loc
 			FROM posts
 			WHERE postid=id;
 		SET @size = .5*.01*(10*LN(ABS(@votecount-1))+20);
