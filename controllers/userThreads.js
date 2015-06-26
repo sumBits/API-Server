@@ -1,7 +1,7 @@
 'use strict';
 
 exports.getPostsInThread = function(req, res, pool){
-    console.log("Getting posts in thread: " + req.body.threadId);
+    console.log("Getting posts in thread: " + req.body.data);
     res.send("nothing").end();
 };
 
