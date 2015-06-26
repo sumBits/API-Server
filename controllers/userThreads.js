@@ -13,9 +13,9 @@ exports.getPostsInThread = function (req, res, pool) {
             } else {
                 console.log(err);
             }
+            connection.release(); // Put the db connection back in the pool
+            res.end(); // Send the END packet thing to the request, ending the connection created by the POST from the app
         });
-        connection.release(); // Put the db connection back in the pool
-        res.end(); // Send the END packet thing to the request, ending the connection created by the POST from the app
 
     });
 };
@@ -35,12 +35,13 @@ exports.getUserThreads = function (req, res, pool) {
             } else {
                 console.log(err);
             }
+            connection.release(); // Put the db connection back in the pool
+            res.end(); // Send the END packet thing to the request, ending the connection created by the POST from the app
         });
-        connection.release(); // Put the db connection back in the pool
-        res.end(); // Send the END packet thing to the request, ending the connection created by the POST from the app
+
 
     });
-    
+
 };
 
 exports.postToThread = function (req, res, pool) {
