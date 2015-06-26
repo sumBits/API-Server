@@ -61,7 +61,5 @@ exports.postToThread = function (req, res, pool) {
             connection.release(); // Put the db connection back in the pool
             res.end(); // Send the END packet thing to the request, ending the connection created by the POST from the app
         });
-
-
     });
 };
