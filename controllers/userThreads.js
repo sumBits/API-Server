@@ -11,7 +11,6 @@ exports.getPostsInThread = function (req, res, pool) {
                 res.status(200); // Send a 200 code (meaning there was no error)
                 res.send(rows[0]); //  Send the json object representing the rows that were received
             } else {
-                res.status(500);
                 console.log(err);
             }
         });
@@ -34,7 +33,6 @@ exports.getUserThreads = function (req, res, pool) {
                 res.status(200); // Send a 200 code (meaning there was no error)
                 res.send(rows[0]); //  Send the json object representing the rows that were received
             } else {
-                res.status(500);
                 console.log(err);
             }
         });
