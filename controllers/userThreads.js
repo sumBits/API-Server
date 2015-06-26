@@ -7,7 +7,7 @@ exports.getPostsInThread = function(req, res, pool){
 
 exports.getUserThreads = function(req, res, pool){
     console.log(req.body);
-    console.log("Getting user threads for user: " + req.body.user);
+    console.log("Getting user threads for user: " + req.body.data);
     res.send(null);
 };
 
