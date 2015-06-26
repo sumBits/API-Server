@@ -27,7 +27,7 @@ exports.getUserThreads = function (req, res, pool) {
     var user = req.body.data;
 
     pool.getConnection(function (err, connection) { // Create the connection to the databasae, passed as connection to the function
-        connection.query("CALL getUserThreads(" + user + ");", function (err, rows) {
+        connection.query("CALL getUserThreads('" + user + "');", function (err, rows) {
             console.log(rows[0]); // Debugging
             if (!err) {
                 // If there is no error from the db
