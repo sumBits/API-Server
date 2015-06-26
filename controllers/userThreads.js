@@ -47,5 +47,21 @@ exports.getUserThreads = function (req, res, pool) {
 exports.postToThread = function (req, res, pool) {
     console.log(req.body);
     console.log("Posting to thread " + req.body.data.threadId + " the following content: " + req.body.data.content);
-    res.send("nothing").end();
+    var content = req.body.data.content;
+    var id = req.body.data.threadId;
+    var author = req.body.data.author;
+    pool.getConnection(function (err, connection) { // Create the connection to the databasae, passed as connection to the function
+        connection.query("CALL postUser('" + content + "','" + author + "'," + id + ");", function (err, rows) {
+            if (!err) {
+                // If there is no error from the db
+                res.status(200); // Send a 200 code (meaning there was no error)
+            } else {
+                console.log(err);
+            }
+            connection.release(); // Put the db connection back in the pool
+            res.end(); // Send the END packet thing to the request, ending the connection created by the POST from the app
+        });
+
+
+    });
 };
