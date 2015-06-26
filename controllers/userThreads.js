@@ -13,6 +13,6 @@ exports.getUserThreads = function(req, res, pool){
 
 exports.postToThread = function(req, res, pool){
     console.log(req.body);
-    console.log("Posting to thread " + req.body.threadId + " the following content: " + req.body.post.content);
+    console.log("Posting to thread " + req.body.threadId + " the following content: " + req.body.content);
     res.send("nothing").end();
 };
