@@ -44,7 +44,7 @@ exports.getUserThreadsUpdated = function (req, res, pool) {
     var user = req.body.data;
 
     pool.getConnection(function (err, connection) {
-        connection.query("CALL getUserTheadsUpdated(" + user + ");", function (err, rows) {
+        connection.query("CALL getUserTheadsUpdated('" + user + "');", function (err, rows) {
             console.log(rows[0]);
             if (!err) {
                 // If no error from db
