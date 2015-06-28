@@ -20,6 +20,45 @@ exports.getPostsInThread = function (req, res, pool) {
     });
 };
 
+exports.getPostsInThreadUpdated = function (req, res, pool) {
+    console.log("Getting posts in thread: " + req.body.data);
+    var threadGenId = req.body.data;
+    pool.getConnection(function (err, connection) {
+        connection.query("Call getUThreadPostsUpdated(" + threadGenId + ");", function (err, rows) {
+            console.log(rows[0]);
+            if (!err) {
+                res.status(200);
+                res.send(rows[0]);
+            } else {
+                console.log(err);
+            }
+            connection.release();
+            res.end();
+        })
+    })
+}
+
+exports.getUserThreadsUpdated = function (req, res, pool) {
+    console.log(req.body);
+    console.log("Getting user threads for user (updated version): " + req.body.data);
+    var user = req.body.data;
+
+    pool.getConnection(function (err, connection) {
+        connection.query("CALL getUserTheadsUpdated(" + user + "');", function (err, rows) {
+            console.log(rows[0]);
+            if (!err) {
+                // If no error from db
+                res.status(200);
+                res.send(rows[0]);
+            } else {
+                console.log(err);
+            }
+            connection.release();
+            res.end();
+        });
+    });
+};
+
 exports.getUserThreads = function (req, res, pool) {
     console.log(req.body);
     console.log("Getting user threads for user: " + req.body.data);
