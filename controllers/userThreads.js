@@ -124,11 +124,26 @@ exports.postToThreadUpdated = function (req, res, pool) {
 
 exports.joinUThread = function (req, res, pool) {
     console.log(req.body);
-    console.log("Subscribing user " + req.body.user + " to the User Thread " + req.body.fgenId);
+    console.log("Subscribing user " + req.body.user + " to the User Thread " + req.body.genId);
     var user = req.body.user;
     var genId = req.body.genId;
     pool.getConnection(function (err, connection) {
         connection.query("Call subscribe('" + user + "','" + genId + "');", function (err, rows) {
+            if (!err) {
+                res.status(200);
+            } else {
+                console.log(err);
+            }
+            connection.release();
+            res.end();
+        });
+    });
+};
+
+exports.createUThread = function (req, res, pool) {
+    console.log(req.body);
+    pool.getConnection(function (err, connection) {
+        connection.query("Call createNewUThread('" + req.body.title + "','" + req.body.threadGenId + "');", function (err, rows) {
             if (!err) {
                 res.status(200);
             } else {
