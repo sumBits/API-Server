@@ -124,9 +124,9 @@ exports.postToThreadUpdated = function (req, res, pool) {
 
 exports.joinUThread = function (req, res, pool) {
     console.log(req.body);
-    console.log("Subscribing user " + req.body.data.user + " to the User Thread " + req.body.data.genId);
-    var user = req.body.data.user;
-    var genId = req.body.data.genId;
+    console.log("Subscribing user " + req.body.user + " to the User Thread " + req.body.fgenId);
+    var user = req.body.user;
+    var genId = req.body.genId;
     pool.getConnection(function (err, connection) {
         connection.query("Call subscribe('" + user + "','" + genId + "');", function (err, rows) {
             if (!err) {
