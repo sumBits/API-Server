@@ -102,3 +102,40 @@ exports.postToThread = function (req, res, pool) {
         });
     });
 };
+
+exports.postToThreadUpdated = function (req, res, pool) {
+    console.log(req.body);
+    console.log("Posting to thread " + req.body.data.threadGenId + " the following content: " + req.body.data.content);
+    var content = req.body.data.content;
+    var genId = req.body.data.theadGenId;
+    var author = req.body.data.author;
+    pool.getConnection(function (err, connection) {
+        connection.query("Call postUserUpdated('" + content + "','" + author + "','" + genId + "');", function (err, rows) {
+            if (!err) {
+                res.status(200);
+            } else {
+                console.log(err);
+            }
+            connection.release();
+            res.end();
+        });
+    });
+};
+
+exports.joinUThread = function (req, res, pool) {
+    console.log(req.body);
+    console.log("Subscribing user " + req.body.data.user + " to the User Thread " + req.body.data.genId);
+    var user = req.body.data.user;
+    var genId = req.body.data.genId;
+    pool.getConnection(function (err, connection) {
+        connection.query("Call subscribe('" + user + "','" + genId + "');", function (err, rows) {
+            if (!err) {
+                res.status(200);
+            } else {
+                console.log(err);
+            }
+            connection.release();
+            res.end();
+        });
+    });
+};
