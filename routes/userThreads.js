@@ -38,4 +38,9 @@ module.exports = function(app, pool){
         console.log("Request for a user to join a thread by Gen ID has been recieved.");
         userThreads.joinUThread(req, res, pool);
     });
+
+    app.post('/createUThread', function(req, res) {
+        console.log("Request to make new U thread");
+        userThreads.createUThread(req, res, pool);
+    });
 };
