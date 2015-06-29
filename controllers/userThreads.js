@@ -143,7 +143,7 @@ exports.joinUThread = function (req, res, pool) {
 exports.createUThread = function (req, res, pool) {
     console.log(req.body);
     pool.getConnection(function (err, connection) {
-        connection.query("Call createNewUThread('" + req.body.title + "','" + req.body.threadGenId + "');", function (err, rows) {
+        connection.query("Call createNewUThread('" + req.body.threadtitle + "','" + req.body.threadGenId + "');", function (err, rows) {
             if (!err) {
                 res.status(200);
             } else {
